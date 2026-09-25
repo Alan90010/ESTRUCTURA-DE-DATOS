@@ -10,8 +10,8 @@ void imprimirArreglo(const vector<int>& arr) {
     cout << endl;
 }
 
-// Ordenamiento por selección (ascendente)
-void ordenamientoPorSeleccion(vector<int>& arr) {
+// Ordenamiento por selección (ascendente), con conteo de comparaciones e intercambios
+void ordenamientoPorSeleccion(vector<int>& arr, long long& comparaciones, long long& intercambios) {
     int n = arr.size();
 
     for (int i = 0; i < n - 1; i++) {
@@ -19,6 +19,7 @@ void ordenamientoPorSeleccion(vector<int>& arr) {
 
         // Buscar el elemento minimo en la parte no ordenada
         for (int j = i + 1; j < n; j++) {
+            comparaciones++;
             if (arr[j] < arr[indiceMinimo]) {
                 indiceMinimo = j;
             }
@@ -27,6 +28,7 @@ void ordenamientoPorSeleccion(vector<int>& arr) {
         // Intercambiar el minimo encontrado con el primer elemento no ordenado
         if (indiceMinimo != i) {
             swap(arr[i], arr[indiceMinimo]);
+            intercambios++;
         }
 
         // Mostrar el estado del arreglo despues de esta pasada
@@ -37,16 +39,24 @@ void ordenamientoPorSeleccion(vector<int>& arr) {
 }
 
 int main() {
-    vector<int> arr = {3, 12, 32, 8, 45, 20, 64};
+    // Puedes reemplazar este arreglo por cualquiera de las listas de prueba
+    vector<int> arr = {8, 3, 7, 4, 2, 9, 1, 6, 5};
+
+    long long comparaciones = 0;
+    long long intercambios = 0;
 
     cout << "Arreglo original: " << endl;
     imprimirArreglo(arr);
     cout << endl;
 
-    ordenamientoPorSeleccion(arr);
+    ordenamientoPorSeleccion(arr, comparaciones, intercambios);
 
     cout << "Arreglo ordenado: " << endl;
     imprimirArreglo(arr);
+    cout << endl;
+
+    cout << "Comparaciones hechas: " << comparaciones << endl;
+    cout << "Intercambios hechos: " << intercambios << endl;
 
     return 0;
 }
